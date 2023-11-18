@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class SimpleAnimBar extends StatelessWidget {
-  const SimpleAnimBar({
-    super.key,
-    required this.controller,
-    required this.onSelect,
-  });
+  const SimpleAnimBar(
+      {super.key,
+      required this.controller,
+      required this.onSelect,
+      required this.items});
   final NavController controller;
+  final List<IconData> items;
+
   final void Function(int index) onSelect;
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,8 @@ class SimpleAnimBar extends StatelessWidget {
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width,
           child: ListView.builder(
-            itemCount: controller.items.length,
-            itemExtent: phoneWidth / controller.items.length,
+            itemCount: items.length,
+            itemExtent: phoneWidth / items.length,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
@@ -28,11 +30,13 @@ class SimpleAnimBar extends StatelessWidget {
               itemID: index,
               controller: controller,
               onSelect: onSelect,
+              items: items,
             ),
           ),
         ),
         _BarIndicator(
           controller: controller,
+          items: items,
         )
       ],
     );
@@ -44,8 +48,11 @@ class _BarItem extends StatelessWidget {
     required this.itemID,
     required this.controller,
     required this.onSelect,
+    required this.items,
   });
   final NavController controller;
+  final List<IconData> items;
+
   final int itemID;
   final void Function(int index) onSelect;
 
@@ -66,7 +73,7 @@ class _BarItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Icon(
-          controller.items[itemID],
+          items[itemID],
           color: controller.currentIndex == itemID
               ? Colors.white
               : controller.color,
@@ -77,8 +84,12 @@ class _BarItem extends StatelessWidget {
 }
 
 class _BarIndicator extends StatelessWidget {
-  const _BarIndicator({required this.controller});
+  const _BarIndicator({
+    required this.controller,
+    required this.items,
+  });
   final NavController controller;
+  final List<IconData> items;
 
   @override
   Widget build(BuildContext context) {
@@ -86,11 +97,11 @@ class _BarIndicator extends StatelessWidget {
     return Row(
       children: [
         AnimatedContainer(
-          width: phoneWidth / controller.items.length,
+          width: phoneWidth / items.length,
           duration: controller.duration,
           transformAlignment: Alignment.center,
           transform: Matrix4.translationValues(
-            controller.currentIndex * phoneWidth / controller.items.length,
+            controller.currentIndex * phoneWidth / items.length,
             0,
             0,
           ),
@@ -114,12 +125,10 @@ class _BarIndicator extends StatelessWidget {
 
 class NavController {
   int currentIndex;
-  final List<IconData> items;
   final Duration duration;
   final Color color;
   NavController({
     required this.currentIndex,
-    required this.items,
     required this.duration,
     required this.color,
   });
