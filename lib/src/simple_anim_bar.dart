@@ -13,35 +13,32 @@ class SimpleAnimBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double phoneWidth = MediaQuery.of(context).size.width;
-    return SizedBox(
-      height: 50,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: 50,
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width,
-            child: ListView.builder(
-              itemCount: items.length,
-              itemExtent: phoneWidth / items.length,
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => _BarItem(
-                itemID: index,
-                controller: controller,
-                onSelect: onSelect,
-                items: items,
-              ),
+    return ListView(
+      shrinkWrap: true,
+      children: [
+        Container(
+          height: 50,
+          alignment: Alignment.center,
+          width: MediaQuery.of(context).size.width,
+          child: ListView.builder(
+            itemCount: items.length,
+            itemExtent: phoneWidth / items.length,
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) => _BarItem(
+              itemID: index,
+              controller: controller,
+              onSelect: onSelect,
+              items: items,
             ),
           ),
-          _BarIndicator(
-            controller: controller,
-            items: items,
-          )
-        ],
-      ),
+        ),
+        _BarIndicator(
+          controller: controller,
+          items: items,
+        )
+      ],
     );
   }
 }
