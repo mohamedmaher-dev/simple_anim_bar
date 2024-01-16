@@ -18,12 +18,12 @@ class SimpleAnimBar extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
-        Container(
-          height: 50,
-          alignment: Alignment.center,
-          // width: MediaQuery.of(context).size.width,
-          child: LayoutBuilder(
-            builder: (context, constraints) => ListView.builder(
+        LayoutBuilder(
+          builder: (context, constraints) => Container(
+            height: 50,
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
               itemCount: items.length,
               itemExtent: constraints.maxWidth / items.length,
               physics: const NeverScrollableScrollPhysics(),
