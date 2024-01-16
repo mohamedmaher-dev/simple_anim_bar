@@ -1,24 +1,22 @@
 part of '../simple_anim_bar.dart';
 
 class _BarIndicator extends StatelessWidget {
-  const _BarIndicator({
-    required this.controller,
-    required this.items,
-  });
+  const _BarIndicator(
+      {required this.controller, required this.items, required this.width});
   final SABController controller;
   final List<IconData> items;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
-    double phoneWidth = MediaQuery.of(context).size.width;
     return Row(
       children: [
         AnimatedContainer(
-          width: phoneWidth / items.length,
+          width: width / items.length,
           duration: controller.duration,
           transformAlignment: Alignment.center,
           transform: Matrix4.translationValues(
-            controller.currentIndex * phoneWidth / items.length,
+            controller.currentIndex * width / items.length,
             0,
             0,
           ),

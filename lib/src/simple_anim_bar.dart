@@ -4,22 +4,23 @@ import 'widgets/sab_item.dart';
 part 'widgets/sab_indicator.dart';
 
 class SimpleAnimBar extends StatelessWidget {
-  const SimpleAnimBar(
-      {super.key,
-      required this.controller,
-      required this.onSelect,
-      required this.items});
+  const SimpleAnimBar({
+    super.key,
+    required this.controller,
+    required this.onSelect,
+    required this.items,
+  });
   final SABController controller;
   final List<IconData> items;
 
   final void Function(int index) onSelect;
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        LayoutBuilder(
-          builder: (context, constraints) => Container(
+    return LayoutBuilder(
+      builder: (context, constraints) => ListView(
+        shrinkWrap: true,
+        children: [
+          Container(
             height: 50,
             alignment: Alignment.center,
             width: MediaQuery.of(context).size.width,
@@ -37,12 +38,13 @@ class SimpleAnimBar extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        _BarIndicator(
-          controller: controller,
-          items: items,
-        )
-      ],
+          _BarIndicator(
+            width: constraints.maxWidth,
+            controller: controller,
+            items: items,
+          )
+        ],
+      ),
     );
   }
 }
