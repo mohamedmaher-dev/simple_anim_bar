@@ -1,8 +1,11 @@
 part of '../simple_anim_bar.dart';
 
 class _BarIndicator extends StatelessWidget {
-  const _BarIndicator(
-      {required this.controller, required this.items, required this.width});
+  const _BarIndicator({
+    required this.controller,
+    required this.items,
+    required this.width,
+  });
   final SABController controller;
   final List<IconData> items;
   final double width;
@@ -23,7 +26,7 @@ class _BarIndicator extends StatelessWidget {
           child: Center(
             child: Align(
               child: Container(
-                width: 50,
+                width: width,
                 height: 3,
                 decoration: BoxDecoration(
                   color: controller.color,
